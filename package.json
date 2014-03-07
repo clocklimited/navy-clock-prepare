@@ -1,0 +1,31 @@
+{
+  "name": "navy-clock-build",
+  "description": "Navy Order to build a Clock project",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:clocklimited/navy-clock-build"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org"
+  },
+  "scripts": {
+    "lint": "./node_modules/.bin/jshint . --reporter=./node_modules/jshint-full-path/index.js",
+    "jscs": "./node_modules/.bin/jscs .",
+    "pretest": "npm run-script lint && npm run-script jscs",
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive -R spec -r should",
+    "posttest": "./node_modules/.bin/istanbul check-coverage && rm -rf coverage"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "jshint": "~2.4.1",
+    "jshint-full-path": "~1.1.1",
+    "mocha": "~1.17.0",
+    "should": "~3.0.1",
+    "istanbul": "~0.2.3",
+    "sinon": "~1.7.3",
+    "jscs": "~1.2.4",
+    "async": "~0.2.10"
+  }
+}
