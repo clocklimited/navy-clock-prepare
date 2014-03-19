@@ -1,7 +1,9 @@
-var cloneOrUpdate = require('./lib/clone-or-update')
-  , checkoutTag = require('./lib/checkout-tag')
-  , initSubmodules = require('./lib/init-submodules')
-  , setup = require('./lib/setup')
+var commandRunner = require('./lib/command-runner')
+  , git = require('./lib/git')(commandRunner)
+  , cloneOrUpdate = require('./lib/clone-or-update')(git)
+  , checkoutTag = require('./lib/checkout-tag')(git)
+  , initSubmodules = require('./lib/init-submodules')(git)
+  , runSetup = require('./lib/run-setup')(commandRunner)
 
 module.exports = function clockBuild() {
 
@@ -10,7 +12,7 @@ module.exports = function clockBuild() {
   , cloneOrUpdate: cloneOrUpdate
   , checkoutTag: checkoutTag
   , initSubmodules: initSubmodules
-  , setup: setup
+  , runSetup: runSetup
   }
 
   function getSteps() {
