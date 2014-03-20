@@ -27,11 +27,9 @@ module.exports = function clockBuild() {
     var data =
       { environment: context.orderArgs[0]
       , appVersion: context.orderArgs[1]
+      , repository: context.appData.repository
+      , buildDir: context.appData.buildDir
       }
-
-    // These will come from context.appData
-    data.repository = 'PUT NUD GIT REPO HERE'
-    data.buildDir = '/tmp/navy-test-build/'
 
     callback(null, data)
   }
