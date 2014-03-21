@@ -1,11 +1,11 @@
 var should = require('should')
   , assert = require('assert')
-  , clockBuild = require('../index')()
+  , clockPrepare = require('../index')()
 
-describe('clock-build', function () {
+describe('clock-prepare', function () {
 
   it('should return steps', function () {
-    var steps = clockBuild.getSteps()
+    var steps = clockPrepare.getSteps()
     assert.equal(typeof steps.init, 'function')
     assert.equal(typeof steps.cloneOrUpdate, 'function')
     assert.equal(typeof steps.checkoutTag, 'function')
@@ -14,7 +14,7 @@ describe('clock-build', function () {
   })
 
   it('should return steps list', function () {
-    var stepList = clockBuild.getStepList()
+    var stepList = clockPrepare.getStepList()
     stepList.length.should.equal(5)
     stepList[0].should.equal('init')
     stepList[1].should.equal('cloneOrUpdate')
@@ -24,10 +24,10 @@ describe('clock-build', function () {
   })
 
   it('should run the init function', function (done) {
-    var steps = clockBuild.getSteps()
+    var steps = clockPrepare.getSteps()
       , context =
         { orderArgs: [ 'staging', '1.0.0' ]
-        , appData: { repository: 'my-repo', buildDir: '/tmp' }
+        , appData: { repository: 'my-repo', prepareDir: '/tmp' }
         }
 
     steps.init(context, function (error, data) {
@@ -36,7 +36,7 @@ describe('clock-build', function () {
       data.environment.should.equal(context.orderArgs[0])
       data.appVersion.should.equal(context.orderArgs[1])
       data.repository.should.equal(context.appData.repository)
-      data.buildDir.should.equal(context.appData.buildDir)
+      data.prepareDir.should.equal(context.appData.prepareDir)
       done()
     })
   })

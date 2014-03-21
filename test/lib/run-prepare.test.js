@@ -19,7 +19,7 @@ describe('run-setup', function () {
         }
       , runPrepare = createRunPrepare(runCmd)
 
-    runPrepare(context, { buildDir: '/tmp' }, function (error) {
+    runPrepare(context, { prepareDir: '/tmp' }, function (error) {
       should.not.exist(error)
       emitSpy.calledOnce.should.equal(true)
       done()

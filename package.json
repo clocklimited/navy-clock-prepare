@@ -1,10 +1,10 @@
 {
-  "name": "navy-clock-build",
-  "description": "Navy Order to build a Clock project",
+  "name": "navy-clock-prepare",
+  "description": "Navy Order to prepare a Clock project for deployment",
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git@github.com:clocklimited/navy-clock-build"
+    "url": "git@github.com:clocklimited/navy-clock-prepare"
   },
   "publishConfig": {
     "registry": "http://registry.npmjs.org"

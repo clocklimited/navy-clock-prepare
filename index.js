@@ -5,7 +5,7 @@ var commandRunner = require('./lib/command-runner')
   , initSubmodules = require('./lib/init-submodules')(git)
   , runPrepare = require('./lib/run-prepare')(commandRunner)
 
-module.exports = function clockBuild() {
+module.exports = function clockPrepare() {
 
   var steps =
   { init: init
@@ -28,7 +28,7 @@ module.exports = function clockBuild() {
       { environment: context.orderArgs[0]
       , appVersion: context.orderArgs[1]
       , repository: context.appData.repository
-      , buildDir: context.appData.buildDir
+      , prepareDir: context.appData.prepareDir
       }
 
     callback(null, data)

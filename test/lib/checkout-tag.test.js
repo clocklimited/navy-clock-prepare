@@ -2,7 +2,7 @@ var sinon = require('sinon')
   , should = require('should')
   , createCheckoutTag = require('../../lib/checkout-tag')
   , git =
-    { checkout: function(tag, buildDir, onData, callback) {
+    { checkout: function(tag, prepareDir, onData, callback) {
         onData()
         callback()
       }
