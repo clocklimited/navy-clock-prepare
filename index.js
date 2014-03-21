@@ -25,8 +25,7 @@ module.exports = function clockPrepare() {
 
   function init(context, callback) {
     var data =
-      { environment: context.orderArgs[0]
-      , appVersion: context.orderArgs[1]
+      { appVersion: context.orderArgs[0]
       , repository: context.appData.repository
       , prepareDir: context.appData.prepareDir
       }

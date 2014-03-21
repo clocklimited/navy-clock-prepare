@@ -26,15 +26,14 @@ describe('clock-prepare', function () {
   it('should run the init function', function (done) {
     var steps = clockPrepare.getSteps()
       , context =
-        { orderArgs: [ 'staging', '1.0.0' ]
+        { orderArgs: [ '1.0.0' ]
         , appData: { repository: 'my-repo', prepareDir: '/tmp' }
         }
 
     steps.init(context, function (error, data) {
       should.not.exist(error)
-      Object.keys(data).length.should.equal(4)
-      data.environment.should.equal(context.orderArgs[0])
-      data.appVersion.should.equal(context.orderArgs[1])
+      Object.keys(data).length.should.equal(3)
+      data.appVersion.should.equal(context.orderArgs[0])
       data.repository.should.equal(context.appData.repository)
       data.prepareDir.should.equal(context.appData.prepareDir)
       done()
