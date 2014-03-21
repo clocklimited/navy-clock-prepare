@@ -10,7 +10,7 @@ describe('clock-build', function () {
     assert.equal(typeof steps.cloneOrUpdate, 'function')
     assert.equal(typeof steps.checkoutTag, 'function')
     assert.equal(typeof steps.initSubmodules, 'function')
-    assert.equal(typeof steps.runSetup, 'function')
+    assert.equal(typeof steps.runPrepare, 'function')
   })
 
   it('should return steps list', function () {
@@ -20,7 +20,7 @@ describe('clock-build', function () {
     stepList[1].should.equal('cloneOrUpdate')
     stepList[2].should.equal('checkoutTag')
     stepList[3].should.equal('initSubmodules')
-    stepList[4].should.equal('runSetup')
+    stepList[4].should.equal('runPrepare')
   })
 
   it('should run the init function', function (done) {
