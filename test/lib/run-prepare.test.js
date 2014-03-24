@@ -1,6 +1,6 @@
 var sinon = require('sinon')
   , should = require('should')
-  , createRunPrepare = require('../../lib/run-prepare.js')
+  , createRunPrepare = require('../../lib/run-prepare')
 
 describe('run-setup', function () {
 
