@@ -5,6 +5,7 @@ This is an Order which is used by [Captains](http://github.com/microadam/navy-ca
 It does the following actions:
 
 * Clone a specified GIT repository to a specified prepare location OR execute a fetch on the existing GIT repository
+* Compare currently checked out branch or tag to the one we are trying to checkout. If the commit hash is the same, skip remaining steps
 * Checkout the specified GIT branch or tag
 * Initialise or update all submodule references
 * Run npm run-script prepare
