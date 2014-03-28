@@ -21,7 +21,21 @@ describe('run-setup', function () {
 
     runPrepare(context, { prepareDir: '/tmp' }, function (error) {
       should.not.exist(error)
-      emitSpy.calledOnce.should.equal(true)
+      emitSpy.calledTwice.should.equal(true, 'emit called count incorrect')
+      done()
+    })
+  })
+
+  it('should do nothing if canSkip is true', function (done) {
+    var emitSpy = sinon.spy()
+      , context = { emit: emitSpy }
+      , data = { canSkip: true }
+      , runPrepare = createRunPrepare()
+
+    runPrepare(context, data, function (error, newData) {
+      should.not.exist(error)
+      emitSpy.callCount.should.equal(0)
+      newData.canSkip.should.equal(true, 'can skip value incorrect')
       done()
     })
   })

@@ -74,4 +74,42 @@ describe('git', function () {
 
   })
 
+  it('should run rev-parse with provided tag', function (done) {
+
+    function runCmd(cmd, args, options, onData, callback) {
+      cmd.should.equal('git')
+      args.length.should.equal(3)
+      args[0].should.equal('rev-parse')
+      args[1].should.equal('--short')
+      args[2].should.equal('my-tag')
+      options.cwd.should.equal('/tmp')
+      callback()
+    }
+
+    var git = createGit(runCmd)
+    git.revParse('my-tag', '/tmp', null, function () {
+      done()
+    })
+
+  })
+
+  it('should run rev-parse with HEAD when no tag provided', function (done) {
+
+    function runCmd(cmd, args, options, onData, callback) {
+      cmd.should.equal('git')
+      args.length.should.equal(3)
+      args[0].should.equal('rev-parse')
+      args[1].should.equal('--short')
+      args[2].should.equal('HEAD')
+      options.cwd.should.equal('/tmp')
+      callback()
+    }
+
+    var git = createGit(runCmd)
+    git.revParse('/tmp', null, function () {
+      done()
+    })
+
+  })
+
 })

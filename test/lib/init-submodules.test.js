@@ -24,4 +24,18 @@ describe('init-submodules', function () {
     })
   })
 
+  it('should do nothing if canSkip is true', function (done) {
+    var emitSpy = sinon.spy()
+      , context = { emit: emitSpy }
+      , data = { canSkip: true }
+      , initSubmodules = createInitSubmodules(git)
+
+    initSubmodules(context, data, function (error, newData) {
+      should.not.exist(error)
+      emitSpy.callCount.should.equal(0)
+      newData.canSkip.should.equal(true, 'can skip value incorrect')
+      done()
+    })
+  })
+
 })

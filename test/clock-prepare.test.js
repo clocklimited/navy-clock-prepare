@@ -8,6 +8,7 @@ describe('clock-prepare', function () {
     var steps = clockPrepare.getSteps()
     assert.equal(typeof steps.init, 'function')
     assert.equal(typeof steps.cloneOrUpdate, 'function')
+    assert.equal(typeof steps.compareCurrentTag, 'function')
     assert.equal(typeof steps.checkoutTag, 'function')
     assert.equal(typeof steps.initSubmodules, 'function')
     assert.equal(typeof steps.runPrepare, 'function')
@@ -15,12 +16,13 @@ describe('clock-prepare', function () {
 
   it('should return steps list', function () {
     var stepList = clockPrepare.getStepList()
-    stepList.length.should.equal(5)
+    stepList.length.should.equal(6)
     stepList[0].should.equal('init')
     stepList[1].should.equal('cloneOrUpdate')
-    stepList[2].should.equal('checkoutTag')
-    stepList[3].should.equal('initSubmodules')
-    stepList[4].should.equal('runPrepare')
+    stepList[2].should.equal('compareCurrentTag')
+    stepList[3].should.equal('checkoutTag')
+    stepList[4].should.equal('initSubmodules')
+    stepList[5].should.equal('runPrepare')
   })
 
   it('should run the init function', function (done) {
