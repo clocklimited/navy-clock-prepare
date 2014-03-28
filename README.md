@@ -17,8 +17,8 @@ This order assumes that the following configuration keys have been added to the 
 
 An example [Admiral](http://github.com/microadam/navy-admiral) application configuration might look like:
 
-    { name: 'My Application'
-    , appId: 'myApp'
-    , repository: 'git@github.com:clocklimited/navy-clock-prepare.git'
-    , prepareDir: '/tmp/my-application-prepare-dir'
+    { "name": "My Application"
+    , "appId": "myApp"
+    , "repository": "git@github.com:clocklimited/navy-clock-prepare.git"
+    , "prepareDir": "/tmp/my-application-prepare-dir"
     }
