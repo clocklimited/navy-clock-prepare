@@ -38,6 +38,7 @@ module.exports = function clockPrepare(config) {
     var data =
           { appVersion: context.orderArgs[0]
           , environment: context.environment
+          , repository: context.appData.repository
           , prepareDir: context.appData.prepareDir
           , buildDir: context.appData.buildDir
           }

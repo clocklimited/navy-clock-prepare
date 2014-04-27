@@ -39,15 +39,16 @@ describe('clock-prepare', function () {
         { appId: 'myapp'
         , environment: 'staging'
         , orderArgs: [ '1.0.0' ]
-        , appData: { buildDir: '/tmp/build' }
+        , appData: { buildDir: '/tmp/build', repository: 'path-to-git-repo' }
         }
 
     steps.init(context, function (error, data) {
       should.not.exist(error)
-      Object.keys(data).length.should.equal(5)
+      Object.keys(data).length.should.equal(6)
       data.appVersion.should.equal(context.orderArgs[0])
       data.environment.should.equal(context.environment)
       data.buildDir.should.equal(context.appData.buildDir)
+      data.repository.should.equal(context.appData.repository)
 
       var expectedFinaBuildlDir =
         context.appData.buildDir + '/' + context.appId + '-' + context.environment + '-' + context.orderArgs[0]
