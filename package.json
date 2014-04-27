@@ -17,7 +17,10 @@
     "posttest": "./node_modules/.bin/istanbul check-coverage && rm -rf coverage"
   },
   "dependencies": {
-    "async": "~0.2.10"
+    "async": "~0.2.10",
+    "extend": "^1.2.1",
+    "ncp": "^0.5.0",
+    "rmdir": "^1.0.4"
   },
   "devDependencies": {
     "istanbul": "~0.2.3",

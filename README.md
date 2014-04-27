@@ -9,11 +9,16 @@ It does the following actions:
 * Checkout the specified GIT branch or tag
 * Initialise or update all submodule references
 * Run npm run-script prepare
+* Copy prepare directory to application specfic subdirectory of the build directory
+* Run npm run-script build inside the application subdirectory
+* Clean up the application subdirectory of any non application files
+* Issue an 'rsync' order to other [Captains](http://github.com/microadam/navy-captain)
 
 This order assumes that the following configuration keys have been added to the [Admiral](http://github.com/microadam/navy-admiral) for the application you are trying to prepare:
 
 * repository: The URL to the GIT repository where your application is stored
 * prepareDir: Where the GIT repository should be cloned to
+* buildDir: Directory into which the prepareDir should be copied. The directory specific to your application will be a subdirectory of this directory
 
 An example [Admiral](http://github.com/microadam/navy-admiral) application configuration might look like:
 
@@ -21,4 +26,26 @@ An example [Admiral](http://github.com/microadam/navy-admiral) application confi
     , "appId": "myApp"
     , "repository": "git@github.com:clocklimited/navy-clock-prepare.git"
     , "prepareDir": "/tmp/my-application-prepare-dir"
+    , "buildDir": "/var/application"
+    }
+
+This order assumes that the following config options have been set on your [Captains](http://github.com/microadam/navy-captain) that will run this order
+
+* externalIpAddress: ipAddress of the Captain running this order. This should be able to be used to access the Captain running this order, from other Captains
+
+An example [Captain](http://github.com/microadam/navy-captain) config file might look like:
+
+    module.exports = function () {
+
+      var config =
+      { name: 'captain-one'
+      , applications: { exampleAppId: [ 'staging', 'production' ] }
+      , admiral: { host: 'http://127.0.0.1', port: 8006 }
+      , orderDir: __dirname + '/orders'
+      , orders:
+        { 'navy-clock-prepare': { command: 'prepare', config: { externalIpAddress: '10.0.0.1' } }
+        }
+      }
+
+      return config
     }
