@@ -19,8 +19,7 @@ describe('serve-build', function () {
 
       request(domain)
         .get('/' + path)
-        .expect(200)
-        .end(function () {
+        .expect(200, function () {
           if (isSuccessful) {
             callback({ success: true })
           } else {
