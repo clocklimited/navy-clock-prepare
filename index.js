@@ -9,7 +9,10 @@ var path = require('path')
   , prepareToBuild = require('./lib/prepare-to-build')()
   , runBuild = require('./lib/run-build')()
   , cleanBuild = require('./lib/clean-build')()
-  , createExecuteCopyOrder = require('./lib/execute-copy-order')
+  , archiver = require('archiver')
+  , tarBuild = require('./lib/tar-build')(archiver)
+  , createServeBuild = require('./lib/serve-build')
+  , removeBuildTar = require('./lib/remove-build-tar')()
 
 module.exports = function clockPrepare(config) {
 
@@ -23,7 +26,9 @@ module.exports = function clockPrepare(config) {
   , prepareToBuild: prepareToBuild
   , runBuild: runBuild
   , cleanBuild: cleanBuild
-  , executeCopyOrder: createExecuteCopyOrder(config)
+  , tarBuild: tarBuild
+  , serveBuild: createServeBuild(config)
+  , removeBuildTar: removeBuildTar
   }
 
   function getSteps() {

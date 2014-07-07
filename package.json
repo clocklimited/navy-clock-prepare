@@ -17,7 +17,9 @@
     "posttest": "./node_modules/.bin/istanbul check-coverage && rm -rf coverage"
   },
   "dependencies": {
+    "archiver": "^0.10.1",
     "async": "~0.2.10",
+    "express": "^4.4.5",
     "extend": "^1.2.1",
     "ncp": "^0.5.0",
     "rmdir": "^1.0.4"
@@ -30,6 +32,7 @@
     "mocha": "~1.17.0",
     "rewire": "^2.0.0",
     "should": "~3.0.1",
-    "sinon": "~1.7.3"
+    "sinon": "~1.7.3",
+    "supertest": "^0.13.0"
   }
 }

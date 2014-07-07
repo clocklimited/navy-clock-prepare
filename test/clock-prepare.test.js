@@ -15,12 +15,14 @@ describe('clock-prepare', function () {
     assert.equal(typeof steps.prepareToBuild, 'function')
     assert.equal(typeof steps.runBuild, 'function')
     assert.equal(typeof steps.cleanBuild, 'function')
-    assert.equal(typeof steps.executeCopyOrder, 'function')
+    assert.equal(typeof steps.tarBuild, 'function')
+    assert.equal(typeof steps.serveBuild, 'function')
+    assert.equal(typeof steps.removeBuildTar, 'function')
   })
 
   it('should return steps list', function () {
     var stepList = clockPrepare.getStepList()
-    stepList.length.should.equal(10)
+    stepList.length.should.equal(12)
     stepList[0].should.equal('init')
     stepList[1].should.equal('cloneOrUpdate')
     stepList[2].should.equal('compareCurrentTag')
@@ -30,7 +32,9 @@ describe('clock-prepare', function () {
     stepList[6].should.equal('prepareToBuild')
     stepList[7].should.equal('runBuild')
     stepList[8].should.equal('cleanBuild')
-    stepList[9].should.equal('executeCopyOrder')
+    stepList[9].should.equal('tarBuild')
+    stepList[10].should.equal('serveBuild')
+    stepList[11].should.equal('removeBuildTar')
   })
 
   it('should run the init function', function (done) {
