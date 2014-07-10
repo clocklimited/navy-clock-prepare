@@ -2,7 +2,7 @@
 
 This is an Order which is used by [Captains](http://github.com/microadam/navy-captain) as part of the Navy deployment suite.
 
-It does the following actions:
+It does the following actions (note, these steps will only be run on the 'master' Captain):
 
 * Clone a specified GIT repository to a specified prepare location OR execute a fetch on the existing GIT repository
 * Compare currently checked out branch or tag to the one we are trying to checkout. If the commit hash is the same, skip remaining steps
@@ -12,7 +12,9 @@ It does the following actions:
 * Copy prepare directory to application specfic subdirectory of the build directory
 * Run npm run-script build inside the application subdirectory
 * Clean up the application subdirectory of any non application files
-* Issue an 'rsync' order to other [Captains](http://github.com/microadam/navy-captain)
+* Tar up the application subdirectory and place in /tmp
+* Start up a HTTP server on a random port and issue a order to other ['\'requestBuild\''](https://github.com/clocklimited/navy-clock-request-build) order to other [Captains](http://github.com/microadam/navy-captain)
+* Remove the tar file in /tmp
 
 This order assumes that the following configuration keys have been added to the [Admiral](http://github.com/microadam/navy-admiral) for the application you are trying to prepare:
 
@@ -31,7 +33,7 @@ An example [Admiral](http://github.com/microadam/navy-admiral) application confi
 
 This order assumes that the following config options have been set on your [Captains](http://github.com/microadam/navy-captain) that will run this order
 
-* externalIpAddress: ipAddress of the Captain running this order. This should be able to be used to access the Captain running this order, from other Captains
+* externalHost: host of the Captain running this order. This should be able to be used to access the Captain running this order, from other Captains
 
 An example [Captain](http://github.com/microadam/navy-captain) config file might look like:
 
@@ -40,10 +42,10 @@ An example [Captain](http://github.com/microadam/navy-captain) config file might
       var config =
       { name: 'captain-one'
       , applications: { exampleAppId: [ 'staging', 'production' ] }
-      , admiral: { host: 'http://127.0.0.1', port: 8006 }
+      , admiral: { host: '127.0.0.1', port: 8006 }
       , orderDir: __dirname + '/orders'
       , orders:
-        { 'navy-clock-prepare': { command: 'prepare', config: { externalIpAddress: '10.0.0.1' } }
+        { 'navy-clock-prepare': { command: 'prepare', config: { externalHost: '10.0.0.1' } }
         }
       }
 

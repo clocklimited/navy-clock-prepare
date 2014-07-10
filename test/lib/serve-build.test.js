@@ -1,6 +1,7 @@
 var assert = require('assert')
   , request = require('supertest')
   , sinon = require('sinon')
+  , should = require('should')
   , createServeBuild = require('../../lib/serve-build')
 
 describe('serve-build', function () {
@@ -31,7 +32,7 @@ describe('serve-build', function () {
 
   it('should serve the build via a http server with no errors', function (done) {
     var emitSpy = sinon.spy()
-      , context = { emit: emitSpy, executeOrder: createExecuteOrder(true) }
+      , context = { emit: emitSpy, executeOrder: createExecuteOrder(true), isMaster: true }
       , data =
         { tarPath: '/dev/null'
         , finalBuildDir: '/tmp'
@@ -48,7 +49,7 @@ describe('serve-build', function () {
 
   it('should serve the build via a http server with errors', function (done) {
     var emitSpy = sinon.spy()
-      , context = { emit: emitSpy, executeOrder: createExecuteOrder(false) }
+      , context = { emit: emitSpy, executeOrder: createExecuteOrder(false), isMaster: true }
       , data =
         { tarPath: '/dev/null'
         , finalBuildDir: '/tmp'
@@ -59,6 +60,20 @@ describe('serve-build', function () {
       assert.equal(error.message, 'Error executing request build order: error')
       assert(data, 'data should exist')
       assert.equal(emitSpy.calledTwice, true, 'emit not called twice. Called: ' + emitSpy.callCount)
+      done()
+    })
+  })
+
+  it('should do nothing if isMaster is false', function (done) {
+    var emitSpy = sinon.spy()
+      , context = { emit: emitSpy, isMaster: false }
+      , data = {}
+      , serveBuild = createServeBuild()
+
+    serveBuild(context, data, function (error) {
+      should.not.exist(error)
+      emitSpy.callCount.should.equal(1)
+      emitSpy.calledWith('Not the master captain. Skipping step').should.equal(true)
       done()
     })
   })

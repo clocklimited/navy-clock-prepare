@@ -39,7 +39,7 @@ describe('run-build', function () {
 
     var runBuild = createRunBuild()
       , emitSpy = sinon.spy()
-      , context = { emit: emitSpy }
+      , context = { emit: emitSpy, isMaster: true }
 
     runBuild(context, data, function (error) {
       should.not.exist(error)
@@ -68,7 +68,7 @@ describe('run-build', function () {
 
     var runBuild = createRunBuild()
       , emitSpy = sinon.spy()
-      , context = { emit: emitSpy }
+      , context = { emit: emitSpy, isMaster: true }
 
     runBuild(context, {}, function (error) {
       should.exist(error)
@@ -77,6 +77,20 @@ describe('run-build', function () {
 
     childProcess.emit('close', 1)
 
+  })
+
+  it('should do nothing if isMaster is false', function (done) {
+    var emitSpy = sinon.spy()
+      , context = { emit: emitSpy, isMaster: false }
+      , data = {}
+      , runBuild = createRunBuild()
+
+    runBuild(context, data, function (error) {
+      should.not.exist(error)
+      emitSpy.callCount.should.equal(1)
+      emitSpy.calledWith('Not the master captain. Skipping step').should.equal(true)
+      done()
+    })
   })
 
 })

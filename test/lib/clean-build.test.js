@@ -14,7 +14,7 @@ describe('clean-build', function () {
 
   it('should successfully prepare the build directory', function (done) {
     var emitSpy = sinon.spy()
-      , context = { emit: emitSpy }
+      , context = { emit: emitSpy, isMaster: true }
       , data =
         { finalBuildDir: '/tmp/navy-clock-build-clean/'
         }
@@ -27,6 +27,19 @@ describe('clean-build', function () {
         fileExists.should.equal(false, filePath + ' has not been removed')
         done()
       })
+    })
+  })
+
+  it('should do nothing if isMaster is false', function (done) {
+    var emitSpy = sinon.spy()
+      , context = { emit: emitSpy, isMaster: false }
+      , data = {}
+
+    cleanBuild(context, data, function (error) {
+      should.not.exist(error)
+      emitSpy.callCount.should.equal(1)
+      emitSpy.calledWith('Not the master captain. Skipping step').should.equal(true)
+      done()
     })
   })
 

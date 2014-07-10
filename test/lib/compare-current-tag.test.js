@@ -24,7 +24,7 @@ describe('compare-current-tag', function () {
 
   it('should set canSkip to true when git hashes are equal', function (done) {
     var emitSpy = sinon.spy()
-      , context = { emit: emitSpy }
+      , context = { emit: emitSpy, isMaster: true }
       , data = { }
       , git = createGit('abcde12345', 'abcde12345')
       , compareCurrentTag = createCompareCurrentTag(git)
@@ -39,7 +39,7 @@ describe('compare-current-tag', function () {
 
   it('should set canSkip to false when git hashes are not equal', function (done) {
     var emitSpy = sinon.spy()
-      , context = { emit: emitSpy }
+      , context = { emit: emitSpy, isMaster: true }
       , data = { }
       , git = createGit('abcde12345', '54321edcba')
       , compareCurrentTag = createCompareCurrentTag(git)
@@ -48,6 +48,20 @@ describe('compare-current-tag', function () {
       should.not.exist(error)
       emitSpy.calledTwice.should.equal(true, 'emit not called twice')
       newData.canSkip.should.equal(false, 'can skip is incorrect')
+      done()
+    })
+  })
+
+  it('should do nothing if isMaster is false', function (done) {
+    var emitSpy = sinon.spy()
+      , context = { emit: emitSpy, isMaster: false }
+      , data = {}
+      , compareCurrentTag = createCompareCurrentTag()
+
+    compareCurrentTag(context, data, function (error) {
+      should.not.exist(error)
+      emitSpy.callCount.should.equal(1)
+      emitSpy.calledWith('Not the master captain. Skipping step').should.equal(true)
       done()
     })
   })

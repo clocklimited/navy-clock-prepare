@@ -16,7 +16,7 @@ describe('prepare-to-build', function () {
 
   it('should successfully prepare the build directory', function (done) {
     var emitSpy = sinon.spy()
-      , context = { emit: emitSpy }
+      , context = { emit: emitSpy, isMaster: true }
       , data =
         { prepareDir: '/tmp/navy-clock-build-test'
         , finalBuildDir: '/tmp/navy-clock-build/'
@@ -30,6 +30,19 @@ describe('prepare-to-build', function () {
         fileExists.should.equal(true, filePath + ' does not exist')
         done()
       })
+    })
+  })
+
+  it('should do nothing if isMaster is false', function (done) {
+    var emitSpy = sinon.spy()
+      , context = { emit: emitSpy, isMaster: false }
+      , data = {}
+
+    prepareToBuild(context, data, function (error) {
+      should.not.exist(error)
+      emitSpy.callCount.should.equal(1)
+      emitSpy.calledWith('Not the master captain. Skipping step').should.equal(true)
+      done()
     })
   })
 

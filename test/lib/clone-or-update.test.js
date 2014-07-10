@@ -17,7 +17,7 @@ describe('clone-or-update', function () {
 
   it('should emit data on clone', function (done) {
     var emitSpy = sinon.spy()
-      , context = { emit: emitSpy }
+      , context = { emit: emitSpy, isMaster: true }
       , data = { prepareDir: '/tmp' }
       , cloneSpy = sinon.spy(git, 'clone')
 
@@ -41,7 +41,7 @@ describe('clone-or-update', function () {
 
   it('should emit data on fetch', function (done) {
     var emitSpy = sinon.spy()
-      , context = { emit: emitSpy }
+      , context = { emit: emitSpy, isMaster: true }
       , data = { prepareDir: '/tmp' }
       , fetchSpy = sinon.spy(git, 'fetch')
 
@@ -59,6 +59,20 @@ describe('clone-or-update', function () {
       emitSpy.calledTwice.should.equal(true)
       fetchSpy.calledOnce.should.equal(true)
       newData.prepareDir.should.equal('/tmp')
+      done()
+    })
+  })
+
+  it('should do nothing if isMaster is false', function (done) {
+    var emitSpy = sinon.spy()
+      , context = { emit: emitSpy, isMaster: false }
+      , data = {}
+      , cloneOrUpdate = createCloneOrUpdate(git)
+
+    cloneOrUpdate(context, data, function (error) {
+      should.not.exist(error)
+      emitSpy.callCount.should.equal(1)
+      emitSpy.calledWith('Not the master captain. Skipping step').should.equal(true)
       done()
     })
   })
