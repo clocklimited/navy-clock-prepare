@@ -12,8 +12,8 @@ It does the following actions (note, these steps will only be run on the 'master
 * Copy prepare directory to application specfic subdirectory of the build directory
 * Run npm run-script build inside the application subdirectory
 * Clean up the application subdirectory of any non application files
-* Tar up the application subdirectory and place in /tmp
-* Start up a HTTP server on a random port and issue a order to other ['\'requestBuild\''](https://github.com/clocklimited/navy-clock-request-build) order to other [Captains](http://github.com/microadam/navy-captain)
+* Tar up the application subdirectory, encrypt it with a random passphrase and place in /tmp
+* Start up a HTTP server on a the port specified in the captain config and issue the ['\'requestBuild\''](https://github.com/clocklimited/navy-clock-request-build) order to other [Captains](http://github.com/microadam/navy-captain)
 * Remove the tar file in /tmp
 
 This order assumes that the following configuration keys have been added to the [Admiral](http://github.com/microadam/navy-admiral) for the application you are trying to prepare:
@@ -45,7 +45,7 @@ An example [Captain](http://github.com/microadam/navy-captain) config file might
       , admiral: { host: '127.0.0.1', port: 8006 }
       , orderDir: __dirname + '/orders'
       , orders:
-        { 'navy-clock-prepare': { command: 'prepare', config: { externalHost: '10.0.0.1' } }
+        { 'navy-clock-prepare': { command: 'prepare', config: { externalHost: '10.0.0.1', tarServerPort: 2020 } }
         }
       }
 
