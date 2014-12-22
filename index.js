@@ -43,12 +43,13 @@ module.exports = function clockPrepare(config) {
   function init(context, callback) {
     var data =
           { appVersion: context.orderArgs[0]
+          , client: context.appData.client
           , environment: context.environment
           , repository: context.appData.repository
           , prepareDir: context.appData.prepareDir
           , buildDir: context.appData.buildDir
           }
-      , dirName = context.appId + '-' + data.environment + '-' + data.appVersion
+      , dirName = data.client + '-' + context.appId + '-' + data.environment + '-' + data.appVersion
       , finalBuildDir = path.join(context.appData.buildDir, dirName)
 
     data.finalBuildDir = finalBuildDir
