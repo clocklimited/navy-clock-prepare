@@ -48,15 +48,14 @@ describe('clock-prepare', function () {
 
     steps.init(context, function (error, data) {
       should.not.exist(error)
-      Object.keys(data).length.should.equal(7)
+      Object.keys(data).length.should.equal(6)
       data.appVersion.should.equal(context.orderArgs[0])
       data.environment.should.equal(context.environment)
-      data.client.should.equal(context.appData.client)
       data.buildDir.should.equal(context.appData.buildDir)
       data.repository.should.equal(context.appData.repository)
 
       var expectedFinaBuildlDir =
-        context.appData.buildDir + '/' + context.appData.client + '-' + context.appId + '-'
+        context.appData.buildDir + '/' + context.appId + '-'
           + context.environment + '-' + context.orderArgs[0]
 
       data.finalBuildDir.should.equal(expectedFinaBuildlDir)
