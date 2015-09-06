@@ -21,7 +21,11 @@ describe('run-build', function () {
   it('should execute a successful build command', function (done) {
 
     var childProcess = createChildProcess()
-      , data = { environment: 'staging', finalBuildDir: '/tmp/build' }
+      , data =
+          { environment: 'staging'
+          , finalBuildDir: '/tmp/build'
+          , customEnvVars: { CUSTOM_VAR: 'test' }
+          }
 
     /* jshint camelcase: false */
     createRunBuild.__set__('cp', {
@@ -33,6 +37,7 @@ describe('run-build', function () {
         Object.keys(options).length.should.equal(2)
         options.cwd.should.equal(data.finalBuildDir)
         options.env.NODE_ENV.should.equal(data.environment)
+        options.env.CUSTOM_VAR.should.equal(data.customEnvVars.CUSTOM_VAR)
         return childProcess
       }
     })
@@ -55,7 +60,7 @@ describe('run-build', function () {
 
   })
 
-  it('should executed a failed build command', function (done) {
+  it('should execute a failed build command', function (done) {
 
     var childProcess = createChildProcess()
 

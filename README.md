@@ -21,6 +21,7 @@ This order assumes that the following configuration keys have been added to the 
 * repository: The URL to the GIT repository where your application is stored
 * prepareDir: Where the GIT repository should be cloned to
 * buildDir: Directory into which the prepareDir should be copied. The directory specific to your application will be a subdirectory of this directory
+* env (optional): Any custom environment variables that need to be set on build
 
 An example [Admiral](http://github.com/microadam/navy-admiral) application configuration might look like:
 
@@ -29,6 +30,9 @@ An example [Admiral](http://github.com/microadam/navy-admiral) application confi
     , "repository": "git@github.com:clocklimited/navy-clock-prepare.git"
     , "prepareDir": "/tmp/my-application-prepare-dir"
     , "buildDir": "/var/application"
+    , "env":
+      { "EXAMPLE_VAR": "example env var"
+      }
     }
 
 This order assumes that the following config options have been set on your [Captains](http://github.com/microadam/navy-captain) that will run this order
