@@ -10,11 +10,12 @@
     "registry": "http://registry.npmjs.org"
   },
   "scripts": {
-    "lint": "./node_modules/.bin/jshint . --reporter=./node_modules/jshint-full-path/index.js",
-    "jscs": "./node_modules/.bin/jscs .",
-    "pretest": "npm run-script lint && npm run-script jscs",
-    "test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive -R spec -r should",
-    "posttest": "./node_modules/.bin/istanbul check-coverage && rm -rf coverage"
+    "lint": "jshint . --reporter=./node_modules/jshint-full-path/index.js",
+    "jscs": "jscs .",
+    "inspect": "jsinspect .",
+    "pretest": "npm run lint && npm run jscs && npm run inspect",
+    "test": "istanbul cover ./node_modules/.bin/_mocha -- --recursive -R spec -r should",
+    "posttest": "istanbul check-coverage && rm -rf coverage"
   },
   "dependencies": {
     "async": "~0.2.10",
@@ -29,6 +30,7 @@
     "jscs": "~1.3",
     "jshint": "~2.4.1",
     "jshint-full-path": "~1.1.1",
+    "jsinspect": "^0.8.0",
     "mocha": "~1.17.0",
     "rewire": "^2.0.0",
     "should": "~3.0.1",
