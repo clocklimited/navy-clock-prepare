@@ -1,10 +1,6 @@
 { "excludeFiles":
   [ "node_modules/**"
   , "coverage"
-  , "site/themes/*/assets/js"
-  , "site/themes/*/source/js/lib/vendor"
-  , "admin/assets/js"
-  , "admin/source/js/lib/vendor"
   ]
 , "requireLineFeedAtFileEnd": true
 , "disallowMultipleLineBreaks": true
