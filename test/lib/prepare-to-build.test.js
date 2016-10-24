@@ -1,6 +1,5 @@
 var sinon = require('sinon')
   , should = require('should')
-  , async = require('async')
   , fs = require('fs')
   , rmdir = require('rmdir')
   , prepareToBuild = require('../../lib/prepare-to-build')()
@@ -10,9 +9,9 @@ describe('prepare-to-build', function () {
   before(function () {
     fs.mkdirSync('/tmp/navy-clock-build-test')
     fs.mkdirSync('/tmp/navy-clock-build')
-    const payload = Array(3000).fill(1).map((v, i) => i)
+    var payload = (new Array(3000)).fill(1).map(function (v, i) { return i })
       , content = payload.join()
-    payload.forEach(v => {
+    payload.forEach(function (v) {
       fs.mkdirSync('/tmp/navy-clock-build-test/dir_' + v)
       fs.writeFileSync('/tmp/navy-clock-build-test/dir_' + v + '/test', content)
     })
