@@ -6,11 +6,14 @@ var sinon = require('sinon')
 
 describe('prepare-to-build', function () {
 
-  before(function (done) {
-    fs.mkdir('/tmp/navy-clock-build-test', function () {
-      fs.writeFile('/tmp/navy-clock-build-test/test', 'hello', function () {
-        fs.mkdir('/tmp/navy-clock-build/', done)
-      })
+  before(function () {
+    fs.mkdirSync('/tmp/navy-clock-build-test')
+    fs.mkdirSync('/tmp/navy-clock-build')
+    var payload = (new Array(3000)).fill(1).map(function (v, i) { return i })
+      , content = payload.join()
+    payload.forEach(function (v) {
+      fs.mkdirSync('/tmp/navy-clock-build-test/dir_' + v)
+      fs.writeFileSync('/tmp/navy-clock-build-test/dir_' + v + '/test', content)
     })
   })
 
@@ -25,7 +28,7 @@ describe('prepare-to-build', function () {
     prepareToBuild(context, data, function (error) {
       should.not.exist(error)
       emitSpy.calledTwice.should.equal(true)
-      var filePath = '/tmp/navy-clock-build/test'
+      var filePath = '/tmp/navy-clock-build/dir_0/test'
       fs.exists(filePath, function (fileExists) {
         fileExists.should.equal(true, filePath + ' does not exist')
         done()
@@ -53,5 +56,4 @@ describe('prepare-to-build', function () {
       })
     })
   })
-
 })
