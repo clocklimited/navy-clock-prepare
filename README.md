@@ -8,7 +8,7 @@ It does the following actions (note, these steps will only be run on the 'master
 * Compare currently checked out branch or tag to the one we are trying to checkout. If the commit hash is the same, skip remaining steps
 * Checkout the specified GIT branch or tag
 * Initialise or update all submodule references
-* Run npm run-script prepare
+* Run npm run-script setup
 * Copy prepare directory to application specfic subdirectory of the build directory
 * Run npm run-script build inside the application subdirectory
 * Clean up the application subdirectory of any non application files

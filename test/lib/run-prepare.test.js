@@ -4,14 +4,14 @@ var sinon = require('sinon')
 
 describe('run-setup', function () {
 
-  it('should emit data when running prepare', function (done) {
+  it('should emit data when running setup', function (done) {
     var emitSpy = sinon.spy()
       , context = { emit: emitSpy, isMaster: true }
       , runCmd = function(cmd, args, options, onData, callback) {
           cmd.should.equal('npm')
           args.length.should.equal(2)
           args[0].should.equal('run-script')
-          args[1].should.equal('prepare')
+          args[1].should.equal('setup')
           Object.keys(options).length.should.equal(1)
           options.cwd.should.equal('/tmp')
           onData()
