@@ -5,6 +5,7 @@ var path = require('path')
   , cloneOrUpdate = require('./lib/clone-or-update')(git)
   , compareCurrentTag = require('./lib/compare-current-tag')(git)
   , checkoutTag = require('./lib/checkout-tag')(git)
+  , resetHard = require('./lib/reset-hard')(git)
   , initSubmodules = require('./lib/init-submodules')(git)
   , runPrepare = require('./lib/run-prepare')(commandRunner)
   , prepareToBuild = require('./lib/prepare-to-build')()
@@ -20,6 +21,7 @@ module.exports = function clockPrepare(config) {
   { init: init
   , cloneOrUpdate: cloneOrUpdate
   , compareCurrentTag: compareCurrentTag
+  , resetHard: resetHard
   , checkoutTag: checkoutTag
   , initSubmodules: initSubmodules
   , runPrepare: runPrepare
