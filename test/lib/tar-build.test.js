@@ -15,7 +15,8 @@ describe('tar-build', function () {
 
     function mockExec(cmd, options, callback) {
       mockExecCalled = true
-      var cmdIndex = cmd.indexOf('tar -zc . | gpg --batch --yes -c --passphrase abc123 -o /tmp/')
+      var cmdIndex = cmd.indexOf('tar cI "zstd -T4" . | ' +
+        'gpg --compress-level 0 --batch --symmetric --passphrase abc123 --output /tmp/')
       assert.equal(cmdIndex, 0, 'command is invalid')
       assert.equal(options.cwd, data.finalBuildDir)
       if (shouldError) {
