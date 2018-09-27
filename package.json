@@ -1,7 +1,7 @@
 {
   "name": "navy-clock-prepare",
   "description": "Navy Order to prepare a Clock project for deployment",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "repository": {
     "type": "git",
     "url": "git@github.com:clocklimited/navy-clock-prepare"
